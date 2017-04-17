@@ -19,16 +19,16 @@ We will be setting these as environment variables, since this is how we work in 
 
 Modules Used (Azure)
 ===
-azure - create or terminate a virtual machine in azure
-azure_rm_networkinterface - Manage Azure network interfaces.
-azure_rm_publicipaddress - Manage Azure Public IP Addresses.
-azure_rm_resourcegroup - Manage Azure resource groups.
-azure_rm_securitygroup - Manage Azure network security groups.
-azure_rm_storageaccount - Manage Azure storage accounts.
-azure_rm_storageblob - Manage blob containers and blob objects.
-azure_rm_subnet - Manage Azure subnets.
-azure_rm_virtualmachine - Manage Azure virtual machines.
-azure_rm_virtualnetwork - Manage Azure virtual networks.
+* azure - create or terminate a virtual machine in azure
+* azure_rm_networkinterface - Manage Azure network interfaces.
+* azure_rm_publicipaddress - Manage Azure Public IP Addresses.
+* azure_rm_resourcegroup - Manage Azure resource groups.
+* azure_rm_securitygroup - Manage Azure network security groups.
+* azure_rm_storageaccount - Manage Azure storage accounts.
+* azure_rm_storageblob - Manage blob containers and blob objects.
+* azure_rm_subnet - Manage Azure subnets.
+* azure_rm_virtualmachine - Manage Azure virtual machines.
+* azure_rm_virtualnetwork - Manage Azure virtual networks.
 
 Executing a Playbook
 ===
