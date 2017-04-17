@@ -1,0 +1,17 @@
+---
+resource_group: demo
+storage_account: ansibledemostorage
+network_id: ansibledemonet
+subnet_id: ansibledemosubnet
+security_group_id: ansibledemosecgroup
+instances:
+  -
+    name: ansibledemoinstance0
+    interface: demonic0
+    ip: demoip0
+    size: Standard_D1
+  -
+    name: ansibledemoinstance1
+    interface: demonic1
+    ip: demoip1
+    size: Standard_D1

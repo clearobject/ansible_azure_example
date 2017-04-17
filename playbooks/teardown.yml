@@ -1,0 +1,66 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+
+  - include_vars: vars.yml
+
+  - name: Terminate virtual machines
+    azure_rm_virtualmachine:
+      name: "{{ item.name }}"
+      resource_group: "{{ resource_group }}"
+      state: absent
+    with_items: "{{ instances }}"
+
+  - name: Delete NICs
+    azure_rm_networkinterface:
+      name: "{{ item.interface }}"
+      resource_group: "{{ resource_group }}"
+      state: absent
+    with_items: "{{ instances }}"
+
+  - name: Remove public ips
+    azure_rm_publicipaddress:
+      name: "{{ item.ip }}"
+      resource_group: "{{ resource_group }}"
+      state: absent
+    with_items: "{{ instances }}"
+
+  - name: Remove security group that allows SSH
+    azure_rm_securitygroup:
+      name: "{{ security_group_id }}"
+      resource_group: "{{ resource_group }}"
+      state: absent
+
+  - name: Remove subnet
+    azure_rm_subnet:
+      name: "{{ subnet_id }}"
+      virtual_network_name: "{{ network_id }}"
+      resource_group: "{{ resource_group }}"
+      state: absent
+
+  - name: Remove virtual network
+    azure_rm_virtualnetwork:
+      name: "{{ network_id }}"
+      resource_group: "{{ resource_group }}"
+      state: absent
+
+  - name: Remove storage container
+    azure_rm_storageblob:
+      resource_group: "{{ resource_group }}"
+      storage_account_name: "{{ storage_account }}"
+      container: demo
+      state: absent
+
+  - name: Remove storage account
+    azure_rm_storageaccount:
+      name: "{{ storage_account }}"
+      resource_group: "{{ resource_group }}"
+      state: absent
+
+  - name: Remove resource group
+    azure_rm_resourcegroup:
+      name: "{{ resource_group }}"
+      state: absent

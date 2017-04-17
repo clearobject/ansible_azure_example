@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+    - include_vars: vars.yml
+
+    - name: Create container demo and upload an index page
+      azure_rm_storageblob:
+        resource_group: "{{ resource_group }}"
+        storage_account_name: "{{ storage_account }}"
+        container: demo
+        blob: index.html
+        src: ../files/index.html
+        public_access: container
+        content_type: 'application/text'

@@ -1,0 +1,5 @@
+---
+# For demo purposes only
+ansible_ssh_user: ansible
+ansible_ssh_pass: Ansible_demo!
+ansible_sudo_pass: "{{ ansible_ssh_pass }}"

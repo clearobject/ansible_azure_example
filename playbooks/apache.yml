@@ -1,0 +1,57 @@
+---
+- hosts: all
+  gather_facts: False
+  become: yes
+  become_method: sudo
+
+  roles:
+    # https://galaxy.ansible.com/officel/httpd/
+    - role: officel.httpd
+
+  post_tasks:
+    - include_vars: vars.yml
+
+    - name: Open HTTP in firewall
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+
+    - name: Install azure pre-reqs
+      yum:
+        name: "{{ item }}"
+      with_items:
+        - epel-release
+        - gcc
+        - python-devel
+        - openssl-devel
+
+    - name: Install pip
+      yum:
+        name: python-pip
+
+    - name: Download azure requirements
+      pip:
+        name: "{{ item }}"
+      with_items:
+        - azure>=2.0rc5
+        - msrest
+        - msrestazure
+
+    - name: Add our custom welcome page
+      azure_rm_storageblob:
+        resource_group: "{{ resource_group }}"
+        storage_account_name: "{{ storage_account }}"
+        container: demo
+        blob: index.html
+        public_access: container
+        dest: /var/www/html/index.html
+        client_id: "{{ lookup('env', 'AZURE_CLIENT_ID') }}"
+        secret: "{{ lookup('env', 'AZURE_SECRET') }}"
+        tenant: "{{ lookup('env', 'AZURE_TENANT') }}"
+        subscription_id: "{{ lookup('env', 'AZURE_SUBSCRIPTION_ID') }}"
+
+    - name: Restart httpd
+      service:
+        name: httpd
+        state: restarted

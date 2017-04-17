@@ -1,0 +1,5 @@
+azure>=2.0rc5
+msrest
+msrestazure
+pyOpenSSL==16.2.0
+ansible==2.3

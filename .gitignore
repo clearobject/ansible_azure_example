@@ -1,0 +1,21 @@
+# ignore vim swap files
+*.swp
+*.swo
+
+# ignore osx filesystem db
+*.DS_Store
+
+# ignore temp log files
+*.log
+
+# ignore compiled python
+*.pyc
+
+# ignore ansible retries
+*.retry
+
+# Ignore Intellij files
+.idea/
+
+# Ignore diff files
+*.diff
